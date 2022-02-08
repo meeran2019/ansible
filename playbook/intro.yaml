@@ -1,0 +1,12 @@
+
+# List of plays.
+# hosts should be maintained in inventory file.
+# modules are comes under task.
+
+-
+    name: 'Play 1'
+    hosts: localhost
+    tasks:
+        -
+            name: 'Execute a date command'
+            command: date

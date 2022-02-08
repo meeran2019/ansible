@@ -1,0 +1,3 @@
+
+ansible-playbook playbook.yaml      -> To execute the playbook. 
+ansible-playbook --help             -> To get additional details.

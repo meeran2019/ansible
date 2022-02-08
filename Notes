@@ -1,0 +1,76 @@
+---------------------------------------------------------------------------------------------------------
+ANSIBLE: 
+---------------------------------------------------------------------------------------------------------
+
+    It is configuration management system. 
+    It is agentless.
+
+    https://docs.ansible.com/
+
+
+INSTALLATION: 
+
+    https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+
+---------------------------------------------------------------------------------------------------------
+ANSIBLE CONCEPTS:
+---------------------------------------------------------------------------------------------------------
+
+ANSIBLE INVENTORY: 
+
+    Ansible is agentless means no need to install software in target system.
+    For Linux, uses SSH and for Windows, uses Powershell remoting. 
+
+    Default inventory file is located in /etc/ansible/hosts file. 
+
+    Inventory Parameters: 
+        ansible_host        -   host name 
+        ansible_connection  -   ssh for Linux / winrm for windows / localhost
+        ansible_port        -   port number 
+        ansible_user        -   root/administrator 
+        ansible_ssh_pass    -   password for linux 
+        ansible_password    -   password for windows
+
+    File Structure: 
+
+    alias-linux-name ansible_host=host-name ansible_connection=ssh ansible_user=root ansible_ssh_pass=Password
+    
+    alias-windows-name ansible_host=host-name ansible_connection=winrm ansible_user=administrator ansible_password=Password
+
+    [group-name]                    # To group by using alias. 
+    alias-name
+    alias-name2
+
+    [new-group-name:children]       # This is to create group by using group. 
+    group-name1
+    group-name2 
+    
+---------------------------------------------------------------------------------------------------------
+
+PLAYBOOKS: 
+
+    It is written in YAML format. 
+
+    PLAY: It is set of activities (tasks).
+        TASKS: An action to be performed on hosts. 
+    
+    Playbook  ->  Play (set of tasks) -> Tasks (actions)
+
+    File structure: 
+
+    Play is array/list and can have multiple play. 
+    Task is array/list and can have multiple tasks under play. 
+    Only group-name should be used without children option in group of group name.
+
+    -
+        name: 'Name of the play'
+        hosts: 'host-name which should be maintain in inventory-file. It can be groupname or alias'
+        tasks: 
+            -
+                name: 'Name of the tasks 1'
+                command: this is module name and corresponding execution.
+            -
+                name: 'Name of the tasks 2'
+                command: this is module name and corresponding execution. 
+                
+---------------------------------------------------------------------------------------------------------    
