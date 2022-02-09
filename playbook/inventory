@@ -1,2 +1,4 @@
 
+# nameserver_ip is variable declared in inventory file. 
+
 localhost ansible_connection=localhost nameserver_ip=10.1.250.10

@@ -24,6 +24,7 @@
 
 
 # Condition 4: when: result.stdout.find('down') != -1   (Used to check the register output) 
+# -1 returns when not found. 
 
 -
     name: 'Add name server entry if not already entered'
@@ -35,4 +36,3 @@
         -
             shell: 'echo "nameserver 10.0.250.10" >> /etc/resolv.conf'
             when: command_output.stdout.find('10.0.250.10') == -1
-

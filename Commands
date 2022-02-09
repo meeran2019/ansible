@@ -1,7 +1,6 @@
 
-
-ansible-playbook playbook.yaml      -> To execute the playbook. 
-ansible-playbook --help             -> To get additional details.
+ansible-playbook playbook.yaml                  -> To execute the playbook. 
+ansible-playbook --help                         -> To get additional details.
 
 ansible-galaxy search role-name                 -> To search the role
 ansible-galaxy install role-name                -> To download the role from galaxy. 

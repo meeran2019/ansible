@@ -1,3 +1,6 @@
+
+# lineinfile module search for the line and replace it if found. if not found, will add the line. 
+
 -
     name: 'Execute a script on all web server nodes'
     hosts: web_nodes

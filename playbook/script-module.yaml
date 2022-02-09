@@ -1,3 +1,5 @@
+
+# script module copies the script file from control machine to target system and execute in target machine.
 -
     name: "play 1"
     hosts: web_nodes

@@ -1,4 +1,5 @@
 
+# Ansible is idempodent. Started means if already started then no change. If not started, then only wil start.
 -
     name: 'Execute a script on all web server nodes'
     hosts: web_nodes

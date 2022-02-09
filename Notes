@@ -150,10 +150,9 @@ ANSIBLE CONDITIONALS:
             if not found, returns -1 . != (not equal). Means check whethere equal to down. 
 
 ---------------------------------------------------------------------------------------------------------                    
-
 ANSIBLE LOOPS: 
 
-    loop or with_items or with_file or with_mongodb
+    loop or with_items or with_file or with_mongodb or with_* 
 
     Declare: 
     
@@ -166,19 +165,19 @@ ANSIBLE LOOPS:
                id: 123
              - name: def
                id: 456
-             
+
+        3. loop: '{{ variable-name }}'
+
     Reference: 
 
         1. '{{ item }}'
         2. '{{ item.name }}'  '{{ item.id }}'
 
 ---------------------------------------------------------------------------------------------------------                    
-
 ANSIBLE ROLES: 
 
     It is packaged tasks (code) and can be reused which performs specific set of activities. 
     Assign role to servers. Role can be mysql, webserver, appserver etc. 
-
 
 ANSIBLE GALAXY: 
     It is repository which contains roles. Which can be used to download and upload roles. 
@@ -187,7 +186,7 @@ ANSIBLE GALAXY:
 
     - name: 
       hosts: 
-      roles: 
+      roles:                        -> To reference the role in playbook. 
         - mysql
     
     /etc/ansible/hosts  - default role path. 
@@ -199,14 +198,14 @@ ANSIBLE GALAXY:
     ansible-config dump | grep ROLE                 -> To check the configuration details. 
     ansible-galaxy install role-name -p ./roles     -> To create new role directory in current path.
 
+    Upload new role to galaxy using git hub.
+
 ---------------------------------------------------------------------------------------------------------                    
 ADVANCED TOPICS:
 
-    Ansible control machine can only be linux. 
-    Target can be both windows and linux. 
+    Ansible control machine can only be linux. Target can be both windows and linux. 
 
     Dynamic inventory -> ansible-playbook -i inventory.py play-file 
     Can create custom modules using python and place under module library. 
-    
----------------------------------------------------------------------------------------------------------
 
+---------------------------------------------------------------------------------------------------------
