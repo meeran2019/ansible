@@ -1,3 +1,10 @@
 
+
 ansible-playbook playbook.yaml      -> To execute the playbook. 
 ansible-playbook --help             -> To get additional details.
+
+ansible-galaxy search role-name                 -> To search the role
+ansible-galaxy install role-name                -> To download the role from galaxy. 
+ansible-galaxy list                             -> To show the list of galaxy. 
+ansible-config dump | grep ROLE                 -> To check the configuration details. 
+ansible-galaxy install role-name -p ./roles     -> To create new role directory in current path.

@@ -62,7 +62,7 @@ PLAYBOOKS:
 
     Play is array/list and can have multiple play. 
     Task is array/list and can have multiple tasks under play. 
-    For HOSTS, Only group-name should be used without children option in group of group name.
+    For HOSTS, Only group-name should be used without children option in group of group name. Also can use pattern *-group-name. 
 
     -
         name: 'Name of the play'
@@ -97,7 +97,7 @@ Service Module:
     state=Started  - If already running, no change. If not running, start the service. 
 
 Lineinfile Module: 
-    Search for a line in a file and replace it or add it if doesn't exists.
+    Search for a line in a file and replace it or add it if doesnot exists.
     
 ---------------------------------------------------------------------------------------------------------
 
@@ -151,7 +151,62 @@ ANSIBLE CONDITIONALS:
 
 ---------------------------------------------------------------------------------------------------------                    
 
+ANSIBLE LOOPS: 
+
+    loop or with_items or with_file or with_mongodb
+
+    Declare: 
+    
+        1. loop: 
+             - name: abc
+             - name: def 
+        
+        2. loop:
+             - name: abc 
+               id: 123
+             - name: def
+               id: 456
+             
+    Reference: 
+
+        1. '{{ item }}'
+        2. '{{ item.name }}'  '{{ item.id }}'
+
+---------------------------------------------------------------------------------------------------------                    
+
+ANSIBLE ROLES: 
+
+    It is packaged tasks (code) and can be reused which performs specific set of activities. 
+    Assign role to servers. Role can be mysql, webserver, appserver etc. 
 
 
+ANSIBLE GALAXY: 
+    It is repository which contains roles. Which can be used to download and upload roles. 
 
+    ansible-galaxy init role-name                   -> create new role. 
+
+    - name: 
+      hosts: 
+      roles: 
+        - mysql
+    
+    /etc/ansible/hosts  - default role path. 
+    Place the role directory on same path of play-book location. 
+
+    ansible-galaxy search role-name                 -> To search the role
+    ansible-galaxy install role-name                -> To download the role from galaxy. 
+    ansible-galaxy list                             -> To show the list of galaxy. 
+    ansible-config dump | grep ROLE                 -> To check the configuration details. 
+    ansible-galaxy install role-name -p ./roles     -> To create new role directory in current path.
+
+---------------------------------------------------------------------------------------------------------                    
+ADVANCED TOPICS:
+
+    Ansible control machine can only be linux. 
+    Target can be both windows and linux. 
+
+    Dynamic inventory -> ansible-playbook -i inventory.py play-file 
+    Can create custom modules using python and place under module library. 
+    
+---------------------------------------------------------------------------------------------------------
 
