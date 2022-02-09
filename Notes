@@ -126,6 +126,31 @@ ANSIBLE VARIABLES:
 
 ---------------------------------------------------------------------------------------------------------        
 
+REGISTER: 
+
+    It helps to register the output of result in variable.
+
+    register: result  (result is a variable which contains the output value )
+
+---------------------------------------------------------------------------------------------------------        
+
+ANSIBLE CONDITIONALS:
+
+    If condition is true, then only tasks will run. 
+
+    when: <<condition>>
+
+    when: ansible_host == "Debian" or ansible_host == "Ubuntu"
+
+    when: ansible_host == "Debian" and ansible_host == "Ubuntu" 
+
+    when: item.variables == True     (used in Loops)
+
+    when: result.stdout.find('down') != -1   (Used to check the register output) 
+            if not found, returns -1 . != (not equal). Means check whethere equal to down. 
+
+---------------------------------------------------------------------------------------------------------                    
+
 
 
 
