@@ -9,7 +9,6 @@
 
     https://docs.ansible.com/
 
-
 INSTALLATION: 
 
     https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
@@ -208,12 +207,48 @@ ADVANCED TOPICS:
     Dynamic inventory -> ansible-playbook -i inventory.py play-file 
     Can create custom modules using python and place under module library. 
 
-
 ---------------------------------------------------------------------------------------------------------
 ** CORE COMPONENTS **
 ---------------------------------------------------------------------------------------------------------
 
 FACTS: 
 
-    
+    First collect information (gather facts) about target system. 
+    By default, ansible collects facts from target system.
+    Setup module is used by ansible internally to collect facts. 
+
+    While executing playbook: 
+
+        PLAY [Play 1] ***************************************
+
+        TASK [Gathering Facts] ******************************
+        ok: [localhost]
+
+        TASK [Execute a date command] ***********************
+        changed: [localhost]
+
+        PLAY RECAP ******************************************
+        localhost : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+    In playbook: 
+
+        hosts: all 
+        gather_facts: no
+        tasks: 
+        - debug:
+            var: ansible_facts                  # using debug module, retrive the ansible_facts values.
+        
+    In config file: 
+
+        /etc/ansible/ansible.cfg file. 
+        # smart - gather by default, but don't regather if already gathered
+        # implicit - gather by default, turn off with gather_facts: False
+        # explicit - do not gather by default, must say gather_facts: True
+        # gathering = implicit
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
 

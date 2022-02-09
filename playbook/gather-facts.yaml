@@ -1,0 +1,9 @@
+-
+  name: 'play name'
+  hosts: localhost
+  tasks:
+  - name: 'task name'
+    debug:
+      var: ansible_facts
+
+
