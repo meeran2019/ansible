@@ -248,6 +248,24 @@ FACTS:
 
 ---------------------------------------------------------------------------------------------------------
 
+CONFIGURATION FILES: 
+
+    /etc/ansible/ansible.cfg    -   default config file. 
+    To override this, copy this ansible.cfg file and place under playbook directory. 
+
+    $ANSIBLE_CONFIG=config-path ansible-playbook playbook.yaml 
+
+    Precedence: (From high to low)
+    Environment variable (ANSIBLE_CONFIG)  <- ansible.cfg in current directory  <-  .ansible.cfg in user home directory <- ansible.cfg in default location.
+
+    For gathering=implicit, corresponding environment variable is ANSIBLE_GATHERING
+
+    For single execution, $ANSIBLE_GATHERING=explicit ansible-playbook playbook.yaml 
+    For all execution, export ANSIBLE_GATHERING=explicit , ansible-playbook playbook.yaml 
+
+    Recommended is to create local copy of ansible.cfg file. 
+
+---------------------------------------------------------------------------------------------------------
 
 
 

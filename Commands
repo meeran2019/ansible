@@ -22,6 +22,14 @@ ansible-galaxy install role-name -p ./roles     -> To create new role directory 
 
 ANSIBLE CONFIG:
 
-ansible-config dump | grep ROLE                 -> To check the configuration details. 
+    ansible-config dump | grep ROLE                 -> To check the configuration details. 
+    $ANSIBLE_CONFIG=config-path ansible-playbook playbook.yaml  -> To take config file from path. 
+
+    ansible-config list     -> List all configurations details. 
+    ansible-config view     -> Get config file, currently active. 
+    ansible-config dump     -> To get environment variables and correponding values. 
 
 ---------------------------------------------------------------------------------------------------------
+
+
+
