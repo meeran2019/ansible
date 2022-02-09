@@ -2,6 +2,7 @@
 # List of plays.
 # hosts should be maintained in inventory file.
 # modules are comes under task.
+# command is one type of module. 
 
 -
     name: 'Play 1'

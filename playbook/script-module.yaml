@@ -1,0 +1,8 @@
+-
+    name: "play 1"
+    hosts: web_nodes
+    tasks:
+        -
+            name: "Execute the script"
+            script: /tmp/install_script.sh
+            

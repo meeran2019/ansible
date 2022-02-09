@@ -5,6 +5,8 @@ ANSIBLE:
     It is configuration management system. 
     It is agentless.
 
+    IDEMPOTENT - Result is always same if action perform repeately. 
+
     https://docs.ansible.com/
 
 
@@ -60,7 +62,7 @@ PLAYBOOKS:
 
     Play is array/list and can have multiple play. 
     Task is array/list and can have multiple tasks under play. 
-    Only group-name should be used without children option in group of group name.
+    For HOSTS, Only group-name should be used without children option in group of group name.
 
     -
         name: 'Name of the play'
@@ -74,3 +76,31 @@ PLAYBOOKS:
                 command: this is module name and corresponding execution. 
                 
 ---------------------------------------------------------------------------------------------------------    
+
+ANSIBLE MODULES: 
+
+    System      -   System level activities like restart, create new useretc. 
+    Command     -   Execute the command / script. 
+    Files       -   Works with file like copy, archive, compress etc. 
+    Database    -   Works with database like mongodb etc. 
+    Cloud       -   Works with cloud providers like aws etc. 
+    Windows     -   Windows environment like win_copy etc. 
+
+Command Module: 
+    To execute the command in target system. 
+
+Script Module: 
+    Runs a script after transfer to target system and execute in remote system. 
+
+Service Module: 
+    Used to start, stop and restart services in target system. 
+    state=Started  - If already running, no change. If not running, start the service. 
+
+Lineinfile Module: 
+    Search for a line in a file and replace it or add it if doesn't exists.
+    
+---------------------------------------------------------------------------------------------------------    
+
+
+
+
