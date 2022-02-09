@@ -1,7 +1,6 @@
 
 # can use with_items or loops, to refer the iterative value. 
 
-
 -
     name: 'Install required packages'
     hosts: localhost

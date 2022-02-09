@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------------------------------------
-ANSIBLE: 
+** ANSIBLE **
 ---------------------------------------------------------------------------------------------------------
 
     It is configuration management system. 
@@ -15,7 +15,7 @@ INSTALLATION:
     https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
 ---------------------------------------------------------------------------------------------------------
-ANSIBLE CONCEPTS:
+** ANSIBLE CONCEPTS **
 ---------------------------------------------------------------------------------------------------------
 
 ANSIBLE INVENTORY: 
@@ -208,4 +208,12 @@ ADVANCED TOPICS:
     Dynamic inventory -> ansible-playbook -i inventory.py play-file 
     Can create custom modules using python and place under module library. 
 
+
 ---------------------------------------------------------------------------------------------------------
+** CORE COMPONENTS **
+---------------------------------------------------------------------------------------------------------
+
+FACTS: 
+
+    
+

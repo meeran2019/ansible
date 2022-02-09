@@ -1,9 +1,27 @@
 
+ANSIBLE PLAYBOOK: 
+
 ansible-playbook playbook.yaml                  -> To execute the playbook. 
+ansible-playbook playbook.yaml  --check         -> To execute the playbook in dry run.
+ansible-playbook playbook.yaml  --start-at-task name-of-task  -> To start execute from specific task. 
 ansible-playbook --help                         -> To get additional details.
+ansible-playbook playbook.yaml  --tags "some-phrase"      -> To run only some-phrase tagged tasks.
+ansible-playbook playbook.yaml  --skip-tags "some-phrase" -> To skip the execution of tagged tasks. 
+ansible-playbook playbook.yaml -i inventory     -> If inventory is not mentioned, takes default location.
+
+---------------------------------------------------------------------------------------------------------
+
+ANSIBLE GALAXY: 
 
 ansible-galaxy search role-name                 -> To search the role
 ansible-galaxy install role-name                -> To download the role from galaxy. 
 ansible-galaxy list                             -> To show the list of galaxy. 
-ansible-config dump | grep ROLE                 -> To check the configuration details. 
 ansible-galaxy install role-name -p ./roles     -> To create new role directory in current path.
+
+---------------------------------------------------------------------------------------------------------
+
+ANSIBLE CONFIG:
+
+ansible-config dump | grep ROLE                 -> To check the configuration details. 
+
+---------------------------------------------------------------------------------------------------------

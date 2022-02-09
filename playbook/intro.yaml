@@ -7,7 +7,12 @@
 -
     name: 'Play 1'
     hosts: localhost
+    vars: 
+      key1: value1
+      key2: value2
+    tags: some-value
     tasks:
         -
             name: 'Execute a date command'
             command: date
+            tags: some-value 
