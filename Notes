@@ -99,7 +99,33 @@ Service Module:
 Lineinfile Module: 
     Search for a line in a file and replace it or add it if doesn't exists.
     
----------------------------------------------------------------------------------------------------------    
+---------------------------------------------------------------------------------------------------------
+
+ANSIBLE VARIABLES: 
+
+    Stores information that varies with each host. 
+    
+    Declaration:
+
+    1. Within playbook, 
+
+        vars: 
+          key1: value1 
+
+    2. Within inventory file, 
+
+        alias key1=value1 key2=value2
+
+    3. Create separate variable.yaml file, 
+
+        key1: value1
+        key2: value2
+
+    Reference: 
+        '{{ key1 }}'
+
+---------------------------------------------------------------------------------------------------------        
+
 
 
 
