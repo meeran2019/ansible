@@ -266,6 +266,23 @@ CONFIGURATION FILES:
     Recommended is to create local copy of ansible.cfg file. 
 
 ---------------------------------------------------------------------------------------------------------
+** INSTALL AND CONFIGURE **
+---------------------------------------------------------------------------------------------------------
+
+INSTALL: 
+
+    To refer the documentation for latest ansible installation procedure, 
+
+    https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
+
+
+    /etc/ansible/ansible.cfg  -> available for installed using yum or apt. 
+    config file not available when installed using pip and need to create manually. 
+
+    sudo yum install epel-release -y ; sudo yum install ansible -y
+
+---------------------------------------------------------------------------------------------------------
+
 
 
 
