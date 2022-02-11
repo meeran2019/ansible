@@ -31,5 +31,20 @@ ANSIBLE CONFIG:
 
 ---------------------------------------------------------------------------------------------------------
 
+CREATE AND DISTRIBUTE SSH KEYS TO MANAGED NODES: 
 
+    ssh-keygen -t rsa -f ~/.ssh/ansible             -> To generate the key. 
 
+    ansible -m ping -i inventory server-name        -> To ping server for connectivity check. 
+
+---------------------------------------------------------------------------------------------------------
+
+ADHOC ANSIBLE COMMANDS: 
+
+    ansible -m module-name -i inventory server-name     -> To ping target system for connectivity.
+    ansible -a 'cat /etc/hosts' server-name             -> To execute the command. 
+    ansible all -a "hostname" -i inventory              -> select host name from inventory file. 
+    ansible node00 -m copy -a "src=/etc/resolv.conf dest=/tmp/resolv.conf" -i inventory   
+
+---------------------------------------------------------------------------------------------------------
+    

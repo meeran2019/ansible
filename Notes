@@ -31,6 +31,7 @@ ANSIBLE INVENTORY:
         ansible_user        -   root/administrator 
         ansible_ssh_pass    -   password for linux 
         ansible_password    -   password for windows
+        ansible_ssh_private_key_file - /private/key/path 
 
     File Structure: 
 
@@ -282,6 +283,91 @@ INSTALL:
     sudo yum install epel-release -y ; sudo yum install ansible -y
 
 ---------------------------------------------------------------------------------------------------------
+
+CREATE AND DISTRIBUTE SSH KEYS TO MANAGED NODES: 
+
+    Password less ssh connection: 
+        User - ssh-keygen -> generate public and private key.
+        public key is placed in server (under ~/.ssh/authorized keys) - using ssh-copy-id tool.
+        user login using user@server -i private-key 
+    
+    ansible_ssh_private_key_file = /path/to/key 
+
+    in inventory file, add ansible_user & ansible_ssh_private_key_file field. 
+
+    ssh-keygen -t rsa -f ~/.ssh/ansible             -> To generate the key. 
+
+    ansible -m ping -i inventory server-name        -> To ping server for connectivity check. 
+
+---------------------------------------------------------------------------------------------------------
+
+ADHOC ANSIBLE COMMANDS: 
+
+    It helps to run the adhoc command using ansible.
+
+    ansible -m ping -i inventory server-name        -> To ping server for connectivity check. 
+
+---------------------------------------------------------------------------------------------------------
+
+ADHOC ANSIBLE COMMANDS - SHELL SCRIPT: 
+
+    file-name.sh 
+    can be executed by: 
+        1. sh file-name.sh 
+        2. chmod 755 filename.sh   ,   ./fine-name.sh 
+
+        ansible all -a "hostname" -i inventory          -> select host name from inventory file. 
+        ansible node00 -m copy -a "src=/etc/resolv.conf dest=/tmp/resolv.conf" -i inventory   
+        ansible-playbook playbook.yml -i inventory -vv  -> Verbose, capture more information.
+
+---------------------------------------------------------------------------------------------------------
+
+PRIVILEGE ESCALATION: 
+
+    root user 
+
+    sudo - become super user 
+
+    su nginx, su mysql  - switch user 
+
+-   hosts: all
+    become: yes  (escalate the privelage)
+    become_method: doas/sudo   # sudo is default. 
+    become_user: 
+    tasks: 
+
+    precedence(from high to low): 
+        command line <- playbook <- inventory <- ansible.cfg 
+    
+    ansible_become 
+    ansible_user 
+    ansible_method 
+
+    --ask-become-pass -> to ask password for sudo.
+
+    become_user -> default value is root
+
+    become_flags -> to change the user to nobody when the shell is set to nologin.
+
+FAQ: 
+    yes or true or True or TRUE  / False or false or no or FALSE 
+
+    {{ variable-name }} - braces required to get the variable. 
+    places where curly braces not used: 
+        1. var: variable_name 
+        2. when: ansible_host == 'web01'
+        
+    "{{ variable-name }}"           -> if only variable, then require single or double quotes. 
+    variable is {{variable-name}}   -> if along with other values, then no quotes. 
+
+    ansible_ssh_pass or ansible_password 
+
+---------------------------------------------------------------------------------------------------------
+
+
+    
+
+
 
 
 
