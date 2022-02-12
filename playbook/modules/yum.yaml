@@ -1,0 +1,49 @@
+
+# name can be list of array.
+
+
+# To install latest version. 
+-
+ hosts: web1
+ tasks:
+   - yum:
+       name: httpd
+       state: latest
+
+
+# To install from RPM repo. 
+
+-
+ hosts: web1
+ tasks:
+   -
+     yum:
+       name: http://mirror.centos.org/centos/7/os/x86_64/Packages/wget-1.14-18.el7_6.1.x86_64.rpm
+       state: present
+
+
+# To install specific version.
+
+- hosts: all
+  tasks:
+    - name: Install unzip package
+      yum:
+        name: unzip-5.52
+        state: present
+
+
+# To uninstall/install package
+
+-
+  hosts: web1
+  tasks:
+    - yum:
+        name: sudo
+        state: latest
+    - yum:
+        name: vsftpd
+        state: absent
+    - yum:
+        name: vsftpd-2.2.2
+        state: present
+

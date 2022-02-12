@@ -1,0 +1,73 @@
+
+# To zip the file file.
+
+- hosts: web1
+  tasks:
+  - archive:
+      path: /opt
+      format: zip
+      dest: /root/opt.zip
+
+# To unarchive (unzip) the file.
+
+- hosts: web1
+  tasks:
+  - unarchive:
+      src: local.zip
+      dest: /tmp
+
+# Extract from target system and delete the file. 
+# remote_src is used when file already present in target system.
+
+- hosts: web1
+  tasks:
+  - unarchive:
+      src: /root/data.tar.gz
+      dest: /srv
+      remote_src: True
+  - file:
+       path: /root/data.tar.gz
+       state: absent
+
+# To extract zip file from remote repository link.
+
+- hosts: web1
+  tasks:
+    - unarchive:
+        src: https://github.com/kodekloudhub/Hello-World/archive/master.zip
+        dest: /root
+        remote_src: true
+
+# Create a bz2 archive of multiple files, rooted at /path
+
+- hosts: web1
+  tasks:
+  - archive:
+      path:
+      - /root/file1.txt
+      - /usr/local/share/file2.txt
+      - /var/log/lastlog
+      dest: files.tar.bz2
+      format: bz2
+
+
+# To install package, start service, extract zip file and replace the file content. 
+
+- hosts: web1
+  tasks:
+  - yum:
+      name: nginx
+      state: latest
+  - service:
+      name: nginx
+      state: started
+      enabled: yes
+  - unarchive:
+      src: /root/nginx.zip
+      dest: /usr/share/nginx/html
+      remote_src: true
+  - replace:
+      path: /usr/share/nginx/html/index.html
+      regexp: This is sample html code
+      replace: This is KodeKloud Ansible lab
+

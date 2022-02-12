@@ -1,0 +1,88 @@
+
+# zone - network from which traffic originate or to connect to. 
+# services - it is combination of port and protocol that host is listening on.
+# enabled/disabled - add/remove
+
+# To install the firewalld package, start and enable the service.
+
+-
+  hosts: web1
+  tasks:
+    - yum:
+        name: firewalld
+        state: latest
+    - service:
+        name: firewalld
+        state: started
+        enabled: yes
+
+# To whitelist the IP address.
+
+-
+ hosts: web1
+ tasks:
+ - firewalld:
+     source: 172.20.1.101
+     zone: internal
+     state: enabled
+
+# To block the specific port, use zone=block 
+# firewall-cmd --list-ports --zone=block
+
+- hosts: web1
+  tasks:
+    - firewalld:
+        port: 161/udp
+        permanent: true
+        state: enabled
+        zone: block
+        immediate: yes 
+
+# To enable HTTPS connection from source machine (controller) to target machine.
+
+- hosts: web1
+  tasks:
+  - firewalld:
+      zone: internal
+      service: https
+      permanent: true
+      immediate: yes
+      source: 172.20.1.2
+      state: enabled
+
+
+# To change the port # in config file. 
+
+- hosts: web2
+  tasks:
+    - name: 'install packages'
+      yum:
+        name:
+          - httpd
+          - firewalld
+        state: present
+    - name: 'start and enable the services'
+      service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop:
+        - httpd
+        - firewalld
+    - name: 'add firewall rule to allow 8082'
+      firewalld:
+        port: 8082/tcp
+        permanent: true
+        state: enabled
+        zone: public
+        immediate: yes        
+    - name: Change Apache port
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "Listen 80"
+        replace: "Listen 8082"
+    - name: Restart Apache service
+      service:
+        name: httpd
+        state: restarted
+

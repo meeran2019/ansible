@@ -1,0 +1,54 @@
+
+# Minutes (0-59), Hours (0-23), Day of Month (1-31), Month Field (1-12), Day of Week (0-6)
+# 0 */2 * * *  - to execute every 2 hrs. 
+# NOTE: name is important for CRON which is used for delete and refer the cron. 
+
+# To execute the cron job at 12 am everyday.
+
+ hosts: node00
+  tasks:
+  - cron:
+      hour: 0
+      minute: 0
+      job: echo ""  > /var/log/lastlog
+
+# To execute the script file for every 2 hours. 
+
+- hosts: node00
+  tasks:
+  - cron:
+      name: Free Memory Check
+      job: "sh /root/free.sh"
+      hour: "*/2"
+      minute: "0"
+
+# To remove the CRON "Check Memory". 
+
+- hosts: node00
+  tasks:
+  - cron:
+      name: Check Memory
+      state: absent
+
+# To run the cron at special time like reboot
+
+- hosts: node00
+  tasks:
+  - cron:
+      job: "rm -rf /tmp/*"
+      name: cleanup
+      special_time: reboot
+
+# To create the cron file under /etc/cron.d 
+
+- hosts: node00
+  tasks:
+  - cron:
+      name: yum update
+      weekday: 0
+      hour: 8
+      minute: 5
+      user: root
+      job: "yum -y update"
+      cron_file: ansible_yum
+

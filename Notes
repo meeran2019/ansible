@@ -364,6 +364,44 @@ FAQ:
 
 ---------------------------------------------------------------------------------------------------------
 
+ANSIBLE MODULES: 
+
+    Package Module: 
+        depends up on OS, select the package like yum or apt. 
+        Depends upon name, will install (for ex: httpd for centos, apache2 for ubuntu)
+    
+    Service Module: 
+        To start and enable service. 
+    
+    Firewalld Module: 
+        permanenet: yes  (effect after reboot)
+        immediate: yes   (effect immediate)
+    
+    lvg Module (logical volume group): 
+    
+    filesystem Module:
+        create file system and mount it.  
+    
+    file Module: 
+
+    archive Module: 
+
+    unarchive module: 
+        remote_source: yes   (source file is in target machine)
+
+    cron Module: 
+        schedule the job. 
+
+    user Module: 
+        create new user. 
+
+    group Module: 
+        to create new group. 
+    
+    authorized_keys module: 
+        
+---------------------------------------------------------------------------------------------------------    
+
 
     
 

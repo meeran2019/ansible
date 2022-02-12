@@ -1,0 +1,31 @@
+
+# To create the user and group.
+
+- hosts: all
+  tasks:
+  - group:
+      name: admin
+      state: present
+  - user:
+      name: admin
+      group: admin
+      uid: 2048
+
+# To create user with expiry date (to pass epoch date)
+
+- hosts: all
+  tasks:
+  - user:
+      name: neymarsabin
+      expires: 1704067199
+
+# To remove the user. 
+
+ hosts: all
+  tasks:
+  - user:
+      name: admin
+      state: absent
+      remove: yes
+
+      

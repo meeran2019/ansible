@@ -1,0 +1,66 @@
+
+# name cannot be array/list. requires to use loop to pass the single value.
+
+# To start the service.
+
+-
+  hosts: web1
+  tasks:
+  - service:
+      name: httpd
+      state: started
+
+# To reload the service.
+# restart - stop + start 
+# reload - running + reread configuration.
+
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Copy Apache welcome file
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+    - service:
+        name: httpd
+        state: reloaded
+
+# To enable the service on boot.
+
+-
+  hosts: web1
+  tasks:
+  - service:
+      name: httpd
+      state: started
+      enabled: yes
+
+# To restart the service.
+
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Make changes in Apache config
+      replace:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "^Listen 80"
+        replace: "Listen 443"
+    - service:
+        name: httpd
+        state: restarted
+
+# To install the package and start the service. 
+
+-
+  hosts: web1
+  tasks:
+    -
+      yum:
+        name: httpd
+        state: latest
+    -
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
