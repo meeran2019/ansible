@@ -29,15 +29,15 @@ ANSIBLE INVENTORY:
         ansible_connection  -   ssh for Linux / winrm for windows / localhost
         ansible_port        -   port number 
         ansible_user        -   root/administrator 
-        ansible_ssh_pass    -   password for linux 
-        ansible_password    -   password for windows
+        ansible_ssh_pass    -   password
+        ansible_password    -   password
         ansible_ssh_private_key_file - /private/key/path 
 
     File Structure: 
 
-    alias-linux-name ansible_host=host-name ansible_connection=ssh ansible_user=root ansible_ssh_pass=Password
+    alias-linux-name ansible_host=host-name ansible_connection=ssh ansible_user=root ansible_ssh_pass=Password  variable1=value1 
     
-    alias-windows-name ansible_host=host-name ansible_connection=winrm ansible_user=administrator ansible_password=Password
+    alias-windows-name ansible_host=host-name ansible_connection=winrm ansible_user=administrator ansible_password=Password variable1=value1 
 
     [group-name]                    # To group by using alias. 
     alias-name
@@ -76,7 +76,6 @@ PLAYBOOKS:
                 command: this is module name and corresponding execution. 
                 
 ---------------------------------------------------------------------------------------------------------    
-
 ANSIBLE MODULES: 
 
     System      -   System level activities like restart, create new useretc. 
@@ -109,6 +108,7 @@ ANSIBLE VARIABLES:
 
     1. Within playbook, 
 
+        hosts:
         vars: 
           key1: value1 
 
@@ -316,7 +316,7 @@ ADHOC ANSIBLE COMMANDS - SHELL SCRIPT:
         1. sh file-name.sh 
         2. chmod 755 filename.sh   ,   ./fine-name.sh 
 
-        ansible all -a "hostname" -i inventory          -> select host name from inventory file. 
+        ansible all -a "commands" -i inventory          -> select host name from inventory file. 
         ansible node00 -m copy -a "src=/etc/resolv.conf dest=/tmp/resolv.conf" -i inventory   
         ansible-playbook playbook.yml -i inventory -vv  -> Verbose, capture more information.
 

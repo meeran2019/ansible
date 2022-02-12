@@ -43,7 +43,7 @@ ADHOC ANSIBLE COMMANDS:
 
     ansible -m module-name -i inventory server-name     -> To ping target system for connectivity.
     ansible -a 'cat /etc/hosts' server-name             -> To execute the command. 
-    ansible all -a "hostname" -i inventory              -> select host name from inventory file. 
+    ansible all -a "commands" -i inventory              -> select host name from inventory file. 
     ansible node00 -m copy -a "src=/etc/resolv.conf dest=/tmp/resolv.conf" -i inventory   
 
 ---------------------------------------------------------------------------------------------------------
