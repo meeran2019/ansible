@@ -484,8 +484,20 @@ JINJA2 IN ANSIBLE:
 
 ---------------------------------------------------------------------------------------------------------
 
+CUSTOMIZE CONFIGURATION FILES: 
 
-    
+    index.html.j2           -> This is jinja template ends with .j2 format. 
+    In playbook, template module is used which convert jinja2 template to corresponding file. 
+
+    tasks:
+    - template: 
+        src: .j2 file 
+        dest: /converted/file 
+
+---------------------------------------------------------------------------------------------------------
+
+
+
 
 
 
