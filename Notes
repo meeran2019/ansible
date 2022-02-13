@@ -401,6 +401,50 @@ ANSIBLE MODULES:
     authorized_keys module: 
         
 ---------------------------------------------------------------------------------------------------------    
+VARIABLE PRECEDENCE: 
+
+    From High to Low: 
+
+        environment variables <- playbook <- inventory <- /etc/ansible/hosts 
+
+        Host Vars <- Group Vars  (In Inventory)
+
+---------------------------------------------------------------------------------------------------------    
+VARIABLE SCOPE: 
+
+    Host variable scope is accessible with in that host.  (In inventory file)
+    Playbook vars variable is accessible within that host. (In playbook)
+
+---------------------------------------------------------------------------------------------------------    
+USE VARIABLES TO RETRIEVE RESULT: 
+
+    register: result        (to store the task output. result is variable and it can be any value)
+    - debug: 
+         var: result.rc     (to display the value)
+
+    -vv  (To capture output in verbose mode which input in CLI)
+
+    Register variable is store in memory.
+
+---------------------------------------------------------------------------------------------------------
+
+MAGIC VARIABLES: 
+
+    If variable is defined in one host. If require to refer that host variable. then use the magic variables.
+
+    hostvars['host-name'].variable-name     -> in inventory file. 
+    groups['group-name']                    -> Return the list of host under the group. 
+    group_names['host-name']                -> Return the list of group for hte given host. 
+    inventory_hostname                      -> Returns host name. 
+
+    https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 
     

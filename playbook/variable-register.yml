@@ -1,0 +1,35 @@
+
+# To print the uptime value.
+
+- hosts: all
+  tasks:
+     - shell: uptime
+       register: uptime_result
+     - debug: var=uptime_result.stdout
+
+
+# To take specific variable from register output. 
+
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - name: stat module help to find the file info
+      stat:
+        path: /var/run
+      register: your_variable
+    - debug: var=your_variable.stat
+    - shell: echo "{{ your_variable.stat }}" > /tmp/by_ansible
+
+# To get information from ansible facts. 
+
+- name: help me fix it playbook
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: alternative way to gather facts about remote host
+      setup: filter='ansible_dist*'
+      register: facts
+    - debug:
+        var: facts.ansible_facts.ansible_distribution
+
+    - shell: echo "{{facts.ansible_facts.ansible_distribution}}" > /tmp/output.txt
