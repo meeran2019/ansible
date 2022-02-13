@@ -28,13 +28,4 @@
       state: absent
       remove: yes
 
-  - name: to create the database
-    mysql_db:
-      name: "{{ dbname }}"
-      state: present
-  - name: create database user
-    mysql_user: 
-      name: "{{ dbuser }}"
-      password: "{{ dbpassword }}"
-      priv: '*.*:ALL'
-      state: present      
+      
