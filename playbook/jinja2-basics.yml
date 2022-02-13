@@ -1,0 +1,41 @@
+
+https://jinja.palletsprojects.com/en/2.10.x/templates/
+
+
+With variable name:
+
+    The name is {{ name }}        
+
+To display in upper case: 
+
+    The name is {{ name | upper }}  
+
+To display in title case: 
+
+    {{ book_name | title }}
+
+To replace the value: 
+
+    {{ dialogue | replace("Bourne","Bond")}}
+
+To display the highest nbr: 
+
+    {{ numbers | max }}
+
+To display the last nbr: 
+
+    {{ numbers | last }}
+
+To join the letters: 
+
+    {{ words | join (" ") }}
+
+To join + title case: 
+
+    {{ words | join(' ') | title }}
+
+To count the no of words; 
+
+    {{ words  | wordcount }}
+
+

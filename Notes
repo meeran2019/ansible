@@ -445,6 +445,38 @@ MAGIC VARIABLES:
 
 JINJA2 BASICS: 
 
+    Templating: 
+        Hi {{ Employee }},
+        Thanks for completing {{ no_of_years }} years. Continue your support. 
+
+        Regards,
+
+    Hi {{ employee }} | upper               - convert to upper case. 
+    lower                                   - convert to lower case. 
+    title                                   - first character is caps. 
+    replace("old-value","another-value")    - replace old value with new value. 
+    name | default("new-default")           - if value is available, use that value. else takes default value. 
+
+    {{ [1,2,3] | min }                      - to get min value. 
+    {{ [1,2,3] | max }                      - to get max value. 
+    {{ [1,2,3] | unique }                   - to get unique value. 
+    {{ [1,2,3,4] | union ([5,6]) }}         - to join and return unique value. 
+    intersect                               - to get common nbr between 2 arrays. 
+    random                                  - to get random numbers. 
+    join                                    - join the array of words. 
+
+
+    {%  for number in [0,1,2,3] %}          - {% %}  represents the block. 
+    {{ number }}
+    {% endfor %}
+
+    {% if number == 2 %}
+    {% endif %}
+
+---------------------------------------------------------------------------------------------------------
+
+
+
     
 
 
