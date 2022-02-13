@@ -1,0 +1,26 @@
+
+# to print in new lines. "-" is used to print next line. 
+
+{% for name in names %}
+{{- name }}
+{% endfor %}
+
+# to print in new lines along with name.
+
+{% for name in name_servers %}
+nameserver {{name -}}
+{% endfor %}
+
+# to print the list of dictionary.
+
+{% for host in hosts -%}
+{{ host.name }} {{host.ip_address}}
+{% endfor %}
+
+# to print based on the condition.
+
+{% for host in hosts -%}
+{% if host.name != 'db1' -%}
+{{ host.name }} {{ host.ip_address -}}
+{% endif %}
+{% endfor %}
