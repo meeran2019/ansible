@@ -436,6 +436,8 @@ MAGIC VARIABLES:
     groups['group-name']                    -> Return the list of host under the group. 
     group_names['host-name']                -> Return the list of group for hte given host. 
     inventory_hostname                      -> Returns host name. 
+    inventory_hostname_short                -> short version of inventory hostname. 
+    inventory_file                          -> File name which inventory defined. 
 
     https://docs.ansible.com/ansible/latest/reference_appendices/special_variables.html
 

@@ -1,2 +1,20 @@
 
+# To refer the another host variable. 
+
+- hosts: all
+  tasks:
+  - shell: "echo {{ hostvars['node01.host'].dns_server }} >> /tmp/variable.txt"
+    register: result
+  - debug:
+      var: result
+
+# to refer teh magic variable. 
+
+- hosts: node00.host
+  gather_facts: yes
+  tasks:
+  - shell: "echo  {{ inventory_hostname }} {{ ansible_default_ipv4.address }} >> /etc/hosts"
+    register: result
+  - debug:
+      var: result
 
