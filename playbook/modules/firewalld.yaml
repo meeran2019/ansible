@@ -2,6 +2,12 @@
 # zone - network from which traffic originate or to connect to. 
 # services - it is combination of port and protocol that host is listening on.
 # enabled/disabled - add/remove
+# drop - all incoming connections are dropped without notification. allow output connection.
+# block - all incoming connection are rejected with message, allow outgoing connection.
+# public - intended to use in untrusted network. 
+# external - intended to use on external network with NAT masquerading.
+# internal - intended to use on internal network with system acts as gatewayo router.
+
 
 # To install the firewalld package, start and enable the service.
 

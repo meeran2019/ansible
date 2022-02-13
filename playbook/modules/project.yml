@@ -1,0 +1,111 @@
+
+
+
+# To install software packages , use become: yes to get sudo access.
+
+- name: Deploy lamp stack application
+  hosts: all
+  tasks:
+    - name: Install common dependencies
+      become: yes
+      yum:
+        name:
+          - libselinux-python
+          - libsemanage-python
+          - firewalld
+        state: present
+
+
+# To install the dependancy packages. 
+# can use become at task and host level.
+
+
+- hosts: all
+  tasks:
+  - become: yes
+    yum:
+      name:
+       - libselinux-python
+       - libsemanage-python
+       - firewalld
+      state: latest
+- hosts: lamp-db
+  become: yes
+  tasks:
+  - become: yes
+    yum:
+       name: mariadb-server
+       state: installed
+  - become: yes
+    yum:
+       name: MySQL-python
+       state: installed
+  - become: yes
+    copy:
+      src: files/my.cnf
+      dest: /etc/my.cnf
+  - become: yes
+    service:
+      name: mariadb
+      state: started
+      enabled: yes
+  - service:
+      name: firewalld
+      state: started
+      enabled: yes
+  - firewalld:
+      port: 3306/tcp
+      permanent: true
+      immediate: yes
+      state: enabled
+      zone: public
+  - name: to create the database
+    mysql_db:
+      name: "{{ dbname }}"
+      state: present
+  - name: create database user
+    mysql_user:
+      name: "{{ dbuser }}"
+      password: "{{ dbpassword }}"
+      priv: '*.*:ALL'
+      state: present
+  - copy:
+      src: files/db-load-script.sql
+      dest: /tmp
+  - shell:
+      "mysql -f < /tmp/db-load-script.sql"
+
+- hosts: lampweb
+  become: yes
+  tasks:
+  - become: yes
+    yum:
+      name:
+       - httpd
+       - php
+       - php-mysql
+       - git
+  - service:
+      name: firewalld
+      state: started
+      enabled: yes
+  - firewalld:
+      port: 80/tcp
+      permanent: true
+      immediate: yes
+      state: enabled
+  - replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: "DirectoryIndex index.html"
+      replace: "DirectoryIndex index.php"
+  - service:
+      name: httpd
+      state: started
+      enabled: yes      
+  - git:
+      repo: "{{ repository }}"
+      dest: /var/www/html
+      force: yes
+  - copy:
+      src: files/index.php
+      dest: /var/www/html/index.php      
