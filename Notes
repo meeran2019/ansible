@@ -494,6 +494,8 @@ CUSTOMIZE CONFIGURATION FILES:
         src: .j2 file 
         dest: /converted/file 
 
+    It convert the jinja2 template in controller system and place/copied into target system.
+
 ---------------------------------------------------------------------------------------------------------
 
 
