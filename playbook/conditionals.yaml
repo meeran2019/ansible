@@ -1,4 +1,7 @@
 
+# https://docs.ansible.com/ansible/2.9/user_guide/playbooks_conditionals.html
+
+
 # Condition 1, when: ansible_host == "Debian" or ansible_host == "Ubuntu"
 -
     name: 'Execute a script on all web server nodes'
@@ -36,3 +39,115 @@
         -
             shell: 'echo "nameserver 10.0.250.10" >> /etc/resolv.conf'
             when: command_output.stdout.find('10.0.250.10') == -1
+
+
+# To install the apt or yum based on the condition.
+
+- name: Install apache
+  hosts: all
+  tasks:
+  - apt:
+      name: apache2
+      state: present
+    when: ansible_distribution == 'Ubuntu'
+  - yum:
+      name: httpd
+      state: present
+    when: ansible_distribution == 'CentOS'
+
+# To check the condition based on the output of task.
+
+- hosts: web2
+  gather_facts: false
+  tasks:
+    - shell: dpkg -l git
+      register: check_if_git_installed
+      ignore_errors: true
+
+    - debug: var=check_if_git_installed
+    - shell: echo 'Oops, git is missing' > /tmp/is_git_installed.txt
+      when: check_if_git_installed.rc != 0
+
+    - shell: git --version > /tmp/is_git_installed.txt
+      when: check_if_git_installed.rc == 0
+
+
+# Below 2 are examples of using boolean with when condition: 
+# There is no need to use jinja2 bool if value of variable is defined in hostvars. 
+
+- name: copy script if not present
+  gather_facts: yes
+  hosts: web2
+  vars:
+    remote_dest: /usr/local/bin/report_status.sh
+  tasks:
+    - copy:
+        src: report_status.sh
+        dest: "{{remote_dest}}"
+      when: copy_file_only_if is defined and copy_file_only_if|bool
+      ###......................................problem is here ^
+      ### modify this so copy_file_only_if is evaluated as boolean.
+
+- name: copy script if not present
+  gather_facts: no
+  hosts: web2
+  vars:
+    remote_dest: /usr/local/bin/report_status.sh
+    copy_file_only_if: True
+  tasks:
+    - copy:
+        src: report_status.sh
+        dest: "{{remote_dest}}"
+      when: copy_file_only_if
+
+
+# To check whether file exists and also executable. 
+# stat module retrive the status of file or file system. 
+
+- hosts: web2
+  gather_facts: no
+  vars:
+    remote_dest: /usr/local/bin/report_status.sh
+  tasks:
+    - stat:
+        path: "{{remote_dest}}"
+      register: file_status
+
+    - debug: var=file_status
+    - shell: echo "File report_status.sh is not executable, making it executable..." > /tmp/change.log
+      when: file_status.stat.exists and file_status.stat.executable == false
+    - name: Make the script executable
+      file:
+        path: "{{remote_dest}}"
+        mode: 0775
+
+
+# To execute the script based on the condition. 
+
+-
+ hosts: web2
+ become: yes
+ tasks:
+ - shell: report_status.sh
+   register: result
+ - debug:
+     var: result.stdout
+ - yum:
+    name: bash
+    state: latest
+   when: result.stdout == 'vulnerable'
+
+
+# is defined , is undefined, variable-name, not variable-name, is failed, is succeeded, 
+
+- hosts: web2
+  gather_facts: no
+  tasks:
+    - name: install nginx
+      apt: name=nginx state=present
+      tags: [install_core]
+
+    - name: install extra packages
+      apt: name={{item}}
+      with_items: "{{extra_packages}}"
+      when: extra_packages is defined and extra_packages == 'htop'

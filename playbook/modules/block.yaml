@@ -1,0 +1,49 @@
+
+# using blocks under tasks.
+
+- hosts: all
+  tasks:
+  - block:
+     - yum:
+         name: httpd
+         state: latest
+     - service:
+         name: httpd
+         state: started
+         enabled: yes
+    when: ansible_distribution == 'CentOS'
+
+
+# Using rescue to capture the message. 
+
+- hosts: all
+  tasks:
+  - block:
+     - yum:
+         name: httpd
+         state: latest
+     - service:
+         name: httpd
+         state: started
+         enabled: yes
+    when: ansible_distribution == 'CentOS'
+    rescue:
+      - debug:
+          msg:  Playbook has failed for {{ inventory_hostname}}  node
+
+# use always to run always whether success or failure.
+
+- hosts: all
+  tasks:
+    - name: Create a file
+      block:
+        - file:
+            path: /tmp/file.txt
+            state: touch
+        - name: This will fail
+          command: /bin/false
+        - debug:
+            msg: "This will never run"
+      always:
+        - debug:
+            msg: "This task always runs!"

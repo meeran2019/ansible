@@ -144,7 +144,7 @@ ANSIBLE CONDITIONALS:
 
     when: ansible_host == "Debian" and ansible_host == "Ubuntu" 
 
-    when: item.variables == True     (used in Loops)
+    when: item.variable-name == True     (used in Loops)
 
     when: result.stdout.find('down') != -1   (Used to check the register output) 
             if not found, returns -1 . != (not equal). Means check whethere equal to down. 
@@ -494,9 +494,31 @@ CUSTOMIZE CONFIGURATION FILES:
         src: .j2 file 
         dest: /converted/file 
 
-    It convert the jinja2 template in controller system and place/copied into target system.
+    It convert the jinja2 template in controller system and place/copied the converted template into target system.
 
 ---------------------------------------------------------------------------------------------------------
+** PLAYBOOK FLOW **
+---------------------------------------------------------------------------------------------------------
+
+BLOCKS: 
+    
+    blocks helps to group the tasks and keep common attributes (become_user) under tasks. 
+    It helps to reduce the code repetition. 
+
+    - hosts:
+      tasks: 
+      - block: 
+        - yum: 
+        - shell: 
+      - block:
+        - command: 
+        - file: 
+        become_user: 
+        rescue:   This will run if tasks failed under blocks.
+        always:   THis will always run irrespective of block success or failure. 
+    
+---------------------------------------------------------------------------------------------------------
+
 
 
 
