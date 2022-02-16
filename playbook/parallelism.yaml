@@ -1,0 +1,32 @@
+
+# To use free strategy type. 
+# It execute the tasks in all servers freely without dependant on other server tasks.
+
+- name: Install httpd
+  hosts: all
+  gather_facts: no
+  strategy: free
+  tasks:
+    - name: Install htpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: start service
+      service:
+        name: httpd
+        state: started
+
+# To process 1 server at a time (Implicitly process based on Linear strategy but with serial takes no of server to process.)
+
+- name: Install httpd
+  hosts: all
+  serial: 1
+  gather_facts: no
+  tasks:
+    - name: Install htpd
+      yum:
+        name: httpd
+        state: present
+
+        

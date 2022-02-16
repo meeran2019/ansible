@@ -536,6 +536,20 @@ CONFIGURE ERROR HANDLING:
 
 ---------------------------------------------------------------------------------------------------------
 
+MANAGE PARALLELISM: 
+
+    Strategy - How playbook is executed. 
+
+    Linear is default strategy type. 
+
+        strategy: linear    -  in all servers, runs task at the same time. 
+        strategy: free      -  It doesnot depend upon other server. Runs at server level. 
+        serial 3            -  based on linear, runs at 3 servers first. Once finished, then proceed for next 3. 
+
+        in /etc/ansible/ansible.cfg - forks = 5  -> How many target servers can ansible controller interact at a time. 
+
+---------------------------------------------------------------------------------------------------------
+
 
 
 
