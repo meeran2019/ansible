@@ -1,0 +1,62 @@
+
+# use any_errors_fatal: true - To stop and exit the execution when ant tasks failed. 
+
+- name: Install httpd
+  hosts: all
+  gather_facts: no
+  any_errors_fatal: true
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: start service
+      service:
+        name: httpd
+        state: started
+
+
+# Use ignore_errors: true  -> To ignore the error if failed for the particular task.
+
+- name: Install httpd
+  hosts: web1
+  gather_facts: no
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: Do not remove this task
+      ignore_errors: yes
+      command: /bin/false
+      register: results
+
+    - shell: "echo {{ results.msg }} > /tmp/output"
+
+    - name: start service
+      service:
+        name: httpd
+        state: started
+
+# failed_when: '"Error" in result.stdout'
+# Note: to use bracket 
+
+- name: Install httpd
+  hosts: web1
+  gather_facts: no
+  tasks:
+    - name: Install httpd
+      yum:
+        name: httpd
+        state: present
+    - name: Check httpd error logs
+      command: cat /var/log/httpd/error_log
+      register: results
+      failed_when: '"Error" in results.stdout'
+
+    - name: start service
+      service:
+        name: httpd
+        state: started

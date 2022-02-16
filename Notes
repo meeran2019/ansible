@@ -519,6 +519,26 @@ BLOCKS:
     
 ---------------------------------------------------------------------------------------------------------
 
+CONFIGURE ERROR HANDLING: 
+
+    Default: If one server failed task, still other server continue to run the task. 
+
+    any_errors_fatal: true      -> If any tasks failed, stops execution and exists. 
+
+    max_fail_percentage: 30     -> Condition to put more tha 30% failed, then exit 
+
+    ignore_errors: yes          -> ignore error
+
+    register: result 
+    failed_when: '"ERROR" in result.stdout'       -> To error when contains the value. 
+    
+    In blocks, use rescue and always.
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
 
 
 
