@@ -653,7 +653,36 @@ ANSIBLE VAULT:
 
 ---------------------------------------------------------------------------------------------------------
 
+DYNAMIC INVENTORY: 
 
+    Static Inventory - Suitable for smaller environment where manually save the host details in inventory. 
+
+    For larger environment - requires dynamic inventory: 
+        -i inventory.py  - python script 
+
+        ./inventory.py -- list          ->  To show the host variables. 
+        ./inventory.py -- host web1     ->  To show the details of host web1 
+
+    
+    Iniventory Plugins: 
+        INI 
+        Script 
+        Yaml 
+        Custom plugin 
+    
+    In etc/ansible/ansible.cfg  -> enable_plugins       -> Contains list of enabled plugins. 
+
+    ansible-inventory -i inventory.py                   -> Show the list of inventory variables. 
+
+    /etc/ansible/hosts                                  -> Default static inventory file. 
+
+    ansible -m ping -i dynamic_custom.py all            -> using dynamic inventory. 
+
+    - hosts: all
+      tasks:
+      - ping:
+
+---------------------------------------------------------------------------------------------------------    
 
 
 
