@@ -605,11 +605,35 @@ File structure:
                 
 ---------------------------------------------------------------------------------------------------------
 
+ANSIBLE ROLES: 
+
+    It is module which contains code performs specific set of tasks like web server, db server etc. 
+
+    role usage: 
+
+    - hosts: all 
+      roles: 
+        - role-name 
+      tasks: 
+        - command: 
+        - yum: 
 
 
+    role-name declaration: 
 
+    - tasks: 
+        shell: 
+        apt: 
 
+    ansible-galaxy (repository for roles): 
+        ansible-galaxy init role-name       -> To create role which initialize with default folder structure. 
+        ansible-galaxy install role-name    -> Download to default location at /etc/ansible/roles/ path. 
+        ansible-galaxy search role-name     -> To search for the role. 
+        ansible-galaxy install role-name -p ./roles -> To download in given path. 
+        ansible-galaxy list 
+        ansible config dump | grep role 
 
+---------------------------------------------------------------------------------------------------------
 
 
 
