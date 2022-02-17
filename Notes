@@ -550,6 +550,61 @@ MANAGE PARALLELISM:
 
 ---------------------------------------------------------------------------------------------------------
 
+ANSIBLE FILE SEPARATION: 
+
+File structure: 
+
+    playbook.yml 
+    inventory (folder)
+        inventory 
+            [webservers]
+            web1 
+            web2 
+            web3 
+        host_vars (folder)
+            web1 
+                ansible_host: 11.11.11.11
+                ansible_port: 1120
+            web2 
+                ansible_host: 22.22.22.22
+                ansible_port: 4567
+            web3 
+        group_vars (folder) 
+            webservers.yml 
+                dns_server: 23.23.23.23
+
+
+    NOTE:   host_vars file name should be same as host name. 
+            group_vars file name should be same as group host name. 
+
+
+    To include the variable from file: 
+    
+      tasks: 
+        -include_vars: 
+            file: 
+            email: 
+
+
+    ansible-inventory -i inventory/ -y      -> To check the final host variable lists. 
+
+    To include the tasks: 
+
+        -include_tasks:  tasks/db.yml 
+        -include_tasks:  tasks/web.yml 
+
+
+    -   name: Print DB server data
+        hosts: all
+        gather_facts: no
+        tasks:
+            - include_vars:
+                file: /home/thor/playbooks/general/common/db/db.yml
+            - debug:
+                var: db_version
+                
+---------------------------------------------------------------------------------------------------------
+
 
 
 

@@ -1,0 +1,14 @@
+
+   - name: Install httpd and php
+      yum:
+        name:
+          - httpd
+          - php
+          - php-mysql
+        state: present
+
+    - name: Install web role specific dependencies
+      yum: name=git state=installed
+
+    - name: Start firewalld
+      service: name=firewalld state=started enabled=yes
