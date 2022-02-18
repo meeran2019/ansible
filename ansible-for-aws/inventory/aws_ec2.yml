@@ -1,0 +1,10 @@
+
+plugin: aws_ec2
+regions:
+  - us-west-2
+
+filters:
+  # All instances with their `Name` tag set as below value.
+  tag:Name:
+    - Ansible-Host1
+    - Ansible-Host2

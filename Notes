@@ -664,7 +664,7 @@ DYNAMIC INVENTORY:
         ./inventory.py -- host web1     ->  To show the details of host web1 
 
     
-    Iniventory Plugins: 
+    Inventory Plugins: 
         INI 
         Script 
         Yaml 
