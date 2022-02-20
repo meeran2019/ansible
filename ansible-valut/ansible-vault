@@ -1,0 +1,57 @@
+
+NOTE: In ansible.cfg file, use vault_password_file (use underscore not dashes)
+
+Vault is a feature of Ansible that allows to keep sensitive data such as password or keys protected at rest rather than plain text. 
+
+There are 2 types, 
+
+Vaulted Files: 
+    Full file is encrypted in vault. 
+
+Single Encrypted Variable: 
+    Only specific variables are encrypted inside a normal variable file. 
+    It works ONLY for VARIABLES. 
+
+Commands: 
+
+    --ask-vault-pass            -   it asks for descrypt password. 
+    --vault-password-file       -   to use the value password file. 
+    --vault-id                  -   If multiple vault password required. 
+
+
+Running a playbook with vault: 
+
+    ansible-playbook playbook.yml --ask-vault-pass                      -> Asks for decrypt password. 
+    ansible-playbook playbook.yml --vault_password_file  vault.txt      -> Place the vault pwd file. 
+    ansible-playbook playbook.yml --vault_password_file  vault.py       -> Place the vault pwd script. 
+
+Single Encrypted Variable: 
+
+    To create the vault variable: 
+
+        ansible-vault encrypt_string super-password
+        New Vault password: 
+        Confirm New Vault password: 
+        !vault |
+                $ANSIBLE_VAULT;1.1;AES256
+                35613632376634323065303261666465363666653735303439633736393132343064653234323533
+                6262396434663763353061326233663735326639663039310a346632633061373532616532303765
+                39623130346638363336336237323537636366326464663862333431653232346164613839653965
+                3538343339353333320a326330656136636637396539333831353832393937353832653865663338
+                6363
+        Encryption successful
+
+
+    To use this vault variable: 
+
+        vars: 
+            mysecret: 
+                !vault |
+                        $ANSIBLE_VAULT;1.1;AES256
+                        35613632376634323065303261666465363666653735303439633736393132343064653234323533
+                        6262396434663763353061326233663735326639663039310a346632633061373532616532303765
+                        39623130346638363336336237323537636366326464663862333431653232346164613839653965
+                        3538343339353333320a326330656136636637396539333831353832393937353832653865663338
+                        6363            
+
+

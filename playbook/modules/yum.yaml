@@ -1,7 +1,6 @@
 
 # name can be list of array.
 
-
 # To install latest version. 
 -
  hosts: web1
@@ -10,7 +9,6 @@
        become: yes 
        name: httpd
        state: latest
-
 
 # To install from RPM repo. 
 
@@ -22,7 +20,6 @@
        name: http://mirror.centos.org/centos/7/os/x86_64/Packages/wget-1.14-18.el7_6.1.x86_64.rpm
        state: present
 
-
 # To install specific version.
 
 - hosts: all
@@ -31,7 +28,6 @@
       yum:
         name: unzip-5.52
         state: present
-
 
 # To uninstall/install package
 
@@ -47,4 +43,19 @@
     - yum:
         name: vsftpd-2.2.2
         state: present
+
+# This is combine cron and yum. To update the package when updates are available.
+
+- hosts: all
+  tasks:
+    - package:
+        name: yum-cron
+        state: present
+    - lineinfile:
+        path: /etc/yum/yum-cron.conf
+        regexp: "^update_cmd"
+        line: "update_cmd = security"
+    - service:
+        name: yum-cron
+        state: restarted
 
