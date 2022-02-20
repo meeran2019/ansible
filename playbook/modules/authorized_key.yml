@@ -1,0 +1,10 @@
+
+# To add oe remove the authorized key in remote server for particular user 
+
+- hosts: all
+  gather_facts: no
+  tasks:
+    - authorized_key:
+        user: root
+        key: "{{ lookup('file', 'john_doe.pub') }}"
+        state: present

@@ -646,8 +646,8 @@ ANSIBLE VAULT:
     ansible-valut encrypt inventory         -> Encrypt the inventory file. 
 
     ansible-playbook playbook.yml -i inventory --ask-valut-pass  -> To enter the valut password. 
-    ansible-playbook playbook.yml -i inventory -valut-password-file valut-pwd.txt  -> To store the valut password in file and pass that file name. 
-    ansible-playbook playbook.yml -i inventory -valut-password-file valut-pwd.py   -> Script used to retrive the ansible valut. 
+    ansible-playbook playbook.yml -i inventory -vault-password-file valut-pwd.txt  -> To store the valut password in file and pass that file name. 
+    ansible-playbook playbook.yml -i inventory -vault-password-file valut-pwd.py   -> Script used to retrive the ansible valut. 
 
     in /etc/ansible/ansible.cfg file, update valut_password_file=path/to/valut/pass  & change the file permission to 640 -> If update in config file, wont ask while running. 
 

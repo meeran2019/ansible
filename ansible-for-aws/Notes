@@ -3,8 +3,9 @@ To setup the dynamic inventory for AWS:
 
     1. Use the aws_ec2 plugin. 
     2. Update the private_key_file to .pem file location in ansible.cfg file.
-    3. Set the environment variable for AWS KEYS (Not recommended)
-    4. In ansible playbook, use the remote_user: ec2-user 
+    3. In /etc/ansible/ansible.cfg file, update the enable_plugins=aws_ec2 
+    4. Set the environment variable for AWS KEYS (Not recommended) instead use the sts role. 
+    5. In ansible playbook, use the remote_user: ec2-user 
     
     Commands used: 
         ansible-playbook playbook.yml -i inventory/aws_ec2.yml      -> To execute playbook. 
