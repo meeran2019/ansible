@@ -130,5 +130,90 @@ ansible-vault encrypt_string  adm$n$
 
 ---------------------------------------------------------------------------------------------------------
 
+nameserver  {{  dns_server }};
+options ndots:0
 
+- hosts: storage_nodes
+  tasks:
+  - name: copy resolv.conf to nodes
+    become: true
+    template:
+      src: /home/thor/playbooks/dns/templates/resolv.conf.j2
+      dest: /tmp/resolv.conf
+
+---------------------------------------------------------------------------------------------------------
+
+- hosts: all
+  tasks:
+    - name: Install and configure httpd web server
+      block:
+        - yum:
+            name: httpd
+            state: latest
+        - service:
+            name: httpd
+            state: started
+
+---------------------------------------------------------------------------------------------------------
+
+- hosts: node00
+  tasks:
+  - name: install firewalld
+    yum:
+      name: firewalld
+      state: latest
+  - name: start firewalld service
+    service:
+      name: firewalld
+      state: started
+      enabled: yes
+  - name: whitelist node01 ip address
+    firewalld:
+      source: 172.20.1.101
+      zone: internal
+      permanent: true
+      state: enabled
+      immediate: yes
+
+---------------------------------------------------------------------------------------------------------
+
+The ssh_key_file is the path used by the option generate_ssh_key of user module. It's not the path of a local SSH key to upload to the remote user created.
+
+- hosts: all
+  tasks:
+  - user:
+      name: deploy
+      state: present
+  - authorized_key:
+      user: deploy
+      state: present
+      key: "{{ lookup('file','~/playbooks/devops.pub') }}"
+
+---------------------------------------------------------------------------------------------------------
+
+hosts: all
+  tasks:
+    - package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - git
+        - make
+        - autoconf
+        - automake
+        - protobuf-devel
+        - libutempter-devel
+        - ncurses-devel
+        - openssl-devel
+        - gcc
+        - gcc-c++
+    - git:
+        repo: https://github.com/mobile-shell/mosh
+        dest: /tmp/mosh
+        force: yes
+    - shell: ./autogen.sh && ./configure && make && make install
+      args:
+        chdir: /tmp/mosh
+
+---------------------------------------------------------------------------------------------------------
 
