@@ -684,16 +684,73 @@ DYNAMIC INVENTORY:
 
 ---------------------------------------------------------------------------------------------------------    
 
+OTHER TOPICS: 
 
+vars_file Vs include_vars: 
 
+    vars_file: 
+        It is used as static configuration.
+        It is expanded during playbook initialization. 
 
+    include_vars: 
+        It is used as dynamic configuration.
+        It included at the time of using include variable. 
+        include_vars higher precedence than vars_file 
 
+Set_facts Module: 
 
+    It is used to set the variables on the fly depending upon certain task results. 
+    These variables will be available to use in subsequet plays during playbook execution. 
+
+    - name: setfacts example
+      set_fact: 
+        key1: "value1"
+        key2: "value2"
+      tags: value
+
+Roles: 
+
+    import_role or include_role do not accept role parameters.  In this case, to use roles keyword. 
+    - roles: 
+        - { role: foo, message: "first"}
+        - { role: foo, message: "second"}
+
+include_tasks vs import_tasks: 
+
+    Import statements are preprocessed at the time playbooks are parsed. (static) 
+    Include statements are processed as they encountered during execution of playbook. (dynamic) 
+
+assert module: 
+    It is used to check the condition. 
+    quiet is used whether to display verbose message or not.
+    success and failure message based on the assert result. 
+
+    - name: using assert 
+      assert: 
+        that: 
+          - my_param <= 100 
+          - my_param >= 0 
+        quiet: true 
+        success_msg: 
+        fail_msg: 
+
+delegate_to : 
+
+    It tells ansibles where the tasks or commands should actually be executed. 
+
+    Remote host1 to remote host2 copy: 
+        
+        1. Fetch - from remote host1 to ansible master(controller).
+        2. Copy  - from master(controller) to remote host2. 
     
+    Copy from remote host1 to remote host2 using synchronize module: 
 
-
-
-
-
-
-
+        Synchronize Pull: 
+            Remote host2 pulls from remote host1. 
+                delegate_to: remote-host-2
+        
+        Synchronize Push: 
+            Remote host1 push the file to remote host2. 
+                delegate_to: remote-host-1 
+        
+---------------------------------------------------------------------------------------------------------    
