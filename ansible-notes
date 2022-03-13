@@ -752,5 +752,26 @@ delegate_to :
         Synchronize Push: 
             Remote host1 push the file to remote host2. 
                 delegate_to: remote-host-1 
-        
+
+
+add_host: 
+
+    It is ansible module which enables to add hosts and groups dynamically in the in-memory inventory of ansible playbook during its execution. 
+
+    When working on new servers, which are not in inventory yet. 
+
+ansible pre_tasks vs tasks vs post_tasks: 
+
+    Pre_tasks is conditional execution block that runs before running the play. It is used for pre validation check. 
+    post_tasks is executed after teh actual play or task is completed. useful for post validation. 
+
+    pre_tasks -> gathering_facts -> roles -> tasks -> post_tasks 
+
+win_shell: 
+
+    Used to execute a power shell commands in windows. 
+    win_command runs process outside of shell. win_shell runs with in shell process like powershell. 
+
+
+
 ---------------------------------------------------------------------------------------------------------    
