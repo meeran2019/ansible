@@ -815,4 +815,7 @@ How to automatically install Ansible Galaxy roles?
       src: https://github.com/dfarrell07/ansible-opendaylight
       version: 1.0.0
       
+    ansible-galaxy install -r requirements.yml      
+    
+    
 ---------------------------------------------------------------------------------------------------------    
