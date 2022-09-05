@@ -808,4 +808,11 @@ Notify handler:
         state: restarted
         
 
+How to automatically install Ansible Galaxy roles?
+    use a requirements.yml. 
+    # Install a role at a specific tag from GitHub
+    - name: opendaylight
+      src: https://github.com/dfarrell07/ansible-opendaylight
+      version: 1.0.0
+      
 ---------------------------------------------------------------------------------------------------------    
