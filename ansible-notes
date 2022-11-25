@@ -173,6 +173,13 @@ ANSIBLE LOOPS:
         1. '{{ item }}'
         2. '{{ item.name }}'  '{{ item.id }}'
 
+
+With_items vs Loops:
+https://italchemy.wordpress.com/2021/07/23/ansible-with_items-vs-loop-whats-the-difference/
+
+With Items - no need to flatten the variable.  [1,2,[3,4],5]  -> [1,2,3,4,5]
+Loops - Require to flatten the variable.  [1,2,[3,4],5] -> [1,2,[3,4],5]
+
 ---------------------------------------------------------------------------------------------------------                    
 ANSIBLE ROLES: 
 
