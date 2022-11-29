@@ -458,6 +458,13 @@ JINJA2 BASICS:
 
         Regards,
 
+Example: 
+    - name: jinja2 templating
+      ansible.windows.win_template:
+        src: source/file.j2
+        dest: dest/fine/path
+      with_items: "{{ pass-variable }}"
+
     Hi {{ employee }} | upper               - convert to upper case. 
     lower                                   - convert to lower case. 
     title                                   - first character is caps. 
