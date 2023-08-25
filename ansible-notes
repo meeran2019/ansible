@@ -849,3 +849,10 @@ TO SUPPORT IDEMPOTENT IN COMMAND, SHELL, RAW:
     when: ncmadm.changed
     
 ---------------------------------------------------------------------------------------------------------        
+
+run_once -> Special variable to run on one host only.
+playbook_dir -> it is working directory.
+remote_src -> source file is taken from target machine.
+get_url -> Module to donload from URL. 
+
+---------------------------------------------------------------------------------------------------------        
